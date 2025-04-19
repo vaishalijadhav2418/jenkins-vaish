@@ -1,43 +1,42 @@
 pipeline {
+    //agent any
     agent { label 'node' }
-
-    environment {
-        MAVEN_HOME = '/opt/maven/bin'
-        SONAR_HOST_URL = 'http://13.201.136.202:9000'
-        SONAR_PROJECT_KEY = 'onlinebookstore'
-        SONAR_AUTH_TOKEN = '7df55e3797483e62578eb700fef2a8495bd8310c'  // Use Jenkins credentials instead in real setup
-    }
 
     stages {
         stage('Pull Stage') {
             steps {
-                git 'https://github.com/vaishalijadhav2418/onlinebookstore_Source_code.git'
-                sh 'ls'
+                git 'https://github.com/vaishalijadhav2418/jenkins-vaish.git'
+                sh '''ls'''
                 sh 'pwd'
-                echo 'Pull stage succeeded'
+                echo 'Pull stage succeed'
             }
         }
-
         stage('Build Stage') {
             steps {
-                sh "${MAVEN_HOME}/mvn clean package"
-                echo 'Build stage succeeded'
+                sh '/opt/maven/bin/mvn clean package '
+                echo 'Build Stage succeed'
             }
         }
+        
+        stage('Test stage') {
+             steps {       
+            sh ''' 
+            export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+              export PATH=$JAVA_HOME/bin:$PATH
+              java -version
 
-        stage('Test Stage') {
-            steps {
-                sh """${MAVEN_HOME}/mvn sonar:sonar \
-                  -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
-                  -Dsonar.host.url=${SONAR_HOST_URL} \
-                  -Dsonar.login=${SONAR_AUTH_TOKEN}"""
-                echo 'Testing done'
-            }
+                mvn sonar:sonar \
+              -Dsonar.projectKey=onlinebookstore \
+              -Dsonar.host.url=http://13.201.136.202:9000 \
+              -Dsonar.login=7df55e3797483e62578eb700fef2a8495bd8310c'''
+                 echo 'Testing done'
+             }
         }
-
+    
+        
         stage('Deploy Stage') {
             steps {
-                echo 'Deployment done'
+                echo 'Deployment Done '
             }
         }
     }
