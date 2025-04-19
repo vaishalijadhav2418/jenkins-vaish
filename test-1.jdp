@@ -1,0 +1,34 @@
+
+pipeline {
+    agent { label 'node' } // Use your actual slave label here
+
+    stages {
+        stage('Pull Stage') {
+            steps {
+                git 'https://github.com/Sourabh-Ambhore/onlinebookstore_Source_code.git'
+                sh 'ls'
+                sh 'pwd'
+                echo 'Pull stage succeed'
+            }
+        }
+
+        stage('Build Stage') {
+            steps {
+                sh '/opt/maven/bin/mvn clean package'
+                echo 'Build Stage succeeded'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'TEST'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'DEPLOY'
+            }
+        }
+    }
+}
