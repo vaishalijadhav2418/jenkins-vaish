@@ -1,37 +1,43 @@
 pipeline {
-    //agent any
     agent { label 'onlinebookstore' }
+
+    environment {
+        MAVEN_HOME = '/opt/maven/bin'
+        SONAR_HOST_URL = 'http://13.201.136.202:9000'
+        SONAR_PROJECT_KEY = 'onlinebookstore'
+        SONAR_AUTH_TOKEN = '7df55e3797483e62578eb700fef2a8495bd8310c'  // Use Jenkins credentials instead in real setup
+    }
 
     stages {
         stage('Pull Stage') {
             steps {
                 git 'https://github.com/Sourabh-Ambhore/onlinebookstore_Source_code.git'
-                sh '''ls'''
+                sh 'ls'
                 sh 'pwd'
-                echo 'Pull stage succeed'
+                echo 'Pull stage succeeded'
             }
         }
+
         stage('Build Stage') {
             steps {
-                sh '/opt/maven/bin/mvn clean package '
-                echo 'Build Stage succeed'
+                sh "${MAVEN_HOME}/mvn clean package"
+                echo 'Build stage succeeded'
             }
         }
-        
-        stage('Test stage') {
-             steps {
-            sh '''mvn sonar:sonar \
-              -Dsonar.projectKey=onlinebookstore \
-              -Dsonar.host.url=http://65.2.129.155:9000 \
-              -Dsonar.login=41d74c4871403d559aa6c0cd41b87c3ef4e8db71'''
-                 echo 'Testing done'
-             }
+
+        stage('Test Stage') {
+            steps {
+                sh """${MAVEN_HOME}/mvn sonar:sonar \
+                  -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+                  -Dsonar.host.url=${SONAR_HOST_URL} \
+                  -Dsonar.login=${SONAR_AUTH_TOKEN}"""
+                echo 'Testing done'
+            }
         }
-    
-        
+
         stage('Deploy Stage') {
             steps {
-                echo 'Deployment Done '
+                echo 'Deployment done'
             }
         }
     }
