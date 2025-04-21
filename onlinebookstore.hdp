@@ -1,49 +1,44 @@
 pipeline {
+    //agent any
     agent { label 'node' }
 
-    tools {
-        maven 'Maven-Manual'
-        jdk 'Java_17'
-    }
-
     stages {
-        stage('Debug Info') {
-            steps {
-                sh 'echo $PATH && which mvn && mvn -v'
-            }
-        }
-
         stage('Pull Stage') {
             steps {
                 git 'https://github.com/vaishalijadhav2418/jenkins-vaish.git'
-                sh 'ls'
+                sh '''ls'''
                 sh 'pwd'
                 echo 'Pull stage succeed'
             }
         }
-
         stage('Build Stage') {
             steps {
-                sh 'mvn clean package'
+                sh '/opt/maven/bin/mvn clean package '
                 echo 'Build Stage succeed'
             }
         }
-
-        stage('Test Stage') {
-            steps {
-                sh '''
-                    mvn sonar:sonar \
-                    -Dsonar.projectKey=onlinebookstore \
-                    -Dsonar.host.url=http://13.201.121.148:9000 \
-                    -Dsonar.login=7df55e3797483e62578eb700fef2a8495bd8310c
+        
+        stage('Test stage') {
+             steps {       
+            sh '''
+                    export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+                    export PATH=$JAVA_HOME/bin:$PATH
+                    java -version
                 '''
-                echo 'Testing done'
-            }
-        }
 
+
+                mvn sonarqube:sonarqube \
+              -Dsonar.projectKey=onlinebookstore \
+              -Dsonar.host.url=http://13.201.121.148:9000 \
+              -Dsonar.login=7df55e3797483e62578eb700fef2a8495bd8310c'''
+                 echo 'Testing done'
+             }
+        }
+    
+        
         stage('Deploy Stage') {
             steps {
-                echo 'Deployment Done'
+                echo 'Deployment Done '
             }
         }
     }
