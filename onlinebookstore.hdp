@@ -2,11 +2,17 @@ pipeline {
     agent { label 'node' }
 
     tools {
-        maven 'Maven-Manual'   // This should match your Jenkins tool config name
-        jdk 'Java_17'          // Optional, if you're managing Java via Jenkins too
+        maven 'Maven-Manual'
+        jdk 'Java_17'
     }
 
     stages {
+        stage('Debug Info') {
+            steps {
+                sh 'echo $PATH && which mvn && mvn -v'
+            }
+        }
+
         stage('Pull Stage') {
             steps {
                 git 'https://github.com/vaishalijadhav2418/jenkins-vaish.git'
@@ -18,8 +24,7 @@ pipeline {
 
         stage('Build Stage') {
             steps {
-               sh '/opt/maven/bin/mvn clean package'
-
+                sh 'mvn clean package'
                 echo 'Build Stage succeed'
             }
         }
