@@ -13,10 +13,7 @@ pipeline {
 
         stage('Build Stage') {
             steps {
-                sh '''#!/bin/bash
-                    cd onlinebookstore_Source_code
-                    /opt/maven/bin/mvn clean package
-                '''
+                sh '/opt/maven/bin/mvn clean package '
                 echo 'Build Stage succeed'
             }
         }
