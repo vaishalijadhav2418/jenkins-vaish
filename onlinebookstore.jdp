@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('Pull Stage') {
             steps {
-                git 'https://github.com/vaishalijadhav2418/onlinebookstore_Source_code.git'
+                https://github.com/vaishalijadhav2418/jenkins-vaish.git'
                 sh '''ls'''
                 sh 'pwd'
                 echo 'Pull stage succeed'
