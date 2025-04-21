@@ -23,7 +23,7 @@ pipeline {
         sh '''
             mvn sonar:sonar \
             -Dsonar.projectKey=onlinebookstore \
-            -Dsonar.host.url=http://13.201.136.202:9000 \
+            -Dsonar.host.url=http://13.201.121.148 :9000 \
             -Dsonar.login=7df55e3797483e62578eb700fef2a8495bd8310c
         '''
         echo 'Testing done'
