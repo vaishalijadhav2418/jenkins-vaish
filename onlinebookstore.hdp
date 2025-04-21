@@ -27,10 +27,11 @@ pipeline {
                 '''
 
 
-        sh '''/opt/maven/bin/mvn sonar:sonar \
-  -Dsonar.projectKey=onlinebookstores \
-  -Dsonar.host.url=http://13.201.121.148:9000 \
-  -Dsonar.login=256983195b76550c8e84e9dcf3077ee3ba8a6207'''
+        sh '''mvn clean verify sonar:sonar \
+  -Dsonar.projectKey=Obs \
+  -Dsonar.projectName='Obs' \
+  -Dsonar.host.url=http://13.233.93.72:9000 \
+  -Dsonar.token=sqp_fd8a441f7a86e8c4393af15ca0ff3652c23833f9'''
 
 
 
