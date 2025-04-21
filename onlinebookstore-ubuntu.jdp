@@ -1,8 +1,5 @@
-
 pipeline {
-    //agent any
-    agent { label 'node' }
-
+    agent any
     stages {
         stage('Pull Stage') {
             steps {
@@ -18,24 +15,18 @@ pipeline {
                 echo 'Build Stage succeed'
             }
         }
-        
-       stage('Test stage') {
-    steps {
-        
-        sh '''
-            mvn clean verify sonar:sonar \
-                -Dsonar.projectKey=Obs \
-                -Dsonar.projectName=Obs \
-                -Dsonar.host.url=http://13.233.93.72:9000 \
-                -Dsonar.token=sqp_fd8a441f7a86e8c4393af15ca0ff3652c23833f9
-        '''
-
-        echo 'Testing done'
-    }
-}
-
-    
-        
+        stage('Test stage') {
+            steps {
+                sh '''
+                    mvn clean verify sonar:sonar \
+                        -Dsonar.projectKey=Obs \
+                        -Dsonar.projectName=Obs \
+                        -Dsonar.host.url=http://13.233.93.72:9000 \
+                        -Dsonar.token=sqp_fd8a441f7a86e8c4393af15ca0ff3652c23833f9
+                '''
+                echo 'Testing done'
+            }
+        }
         stage('Deploy Stage') {
             steps {
                 echo 'Deployment Done '
