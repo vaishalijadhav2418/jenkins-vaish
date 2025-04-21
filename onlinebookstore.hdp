@@ -1,39 +1,43 @@
 pipeline {
-    //agent any
     agent { label 'node' }
+
+    tools {
+        maven 'Maven-Manual'   // This should match your Jenkins tool config name
+        jdk 'Java_17'          // Optional, if you're managing Java via Jenkins too
+    }
 
     stages {
         stage('Pull Stage') {
             steps {
                 git 'https://github.com/vaishalijadhav2418/jenkins-vaish.git'
-                sh '''ls'''
+                sh 'ls'
                 sh 'pwd'
                 echo 'Pull stage succeed'
             }
         }
+
         stage('Build Stage') {
             steps {
-                sh '/opt/maven/bin/mvn clean package '
+                sh 'mvn clean package'
                 echo 'Build Stage succeed'
             }
         }
-        
-    stage('Test stage') {
-    steps {
-        sh '''
-            mvn sonar:sonar \
-            -Dsonar.projectKey=onlinebookstore \
-            -Dsonar.host.url=http://13.201.121.148 :9000 \
-            -Dsonar.login=7df55e3797483e62578eb700fef2a8495bd8310c
-        '''
-        echo 'Testing done'
-    }
-}
 
-        
+        stage('Test Stage') {
+            steps {
+                sh '''
+                    mvn sonar:sonar \
+                    -Dsonar.projectKey=onlinebookstore \
+                    -Dsonar.host.url=http://13.201.121.148:9000 \
+                    -Dsonar.login=7df55e3797483e62578eb700fef2a8495bd8310c
+                '''
+                echo 'Testing done'
+            }
+        }
+
         stage('Deploy Stage') {
             steps {
-                echo 'Deployment Done '
+                echo 'Deployment Done'
             }
         }
     }
