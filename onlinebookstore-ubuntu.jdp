@@ -13,24 +13,24 @@ pipeline {
 
         stage('Build Stage') {
             steps {
-                dir('onlinebookstore_Source_code') {
-                    sh '/opt/maven/bin/mvn clean package'
-                }
+                sh '''#!/bin/bash
+                    cd onlinebookstore_Source_code
+                    /opt/maven/bin/mvn clean package
+                '''
                 echo 'Build Stage succeed'
             }
         }
 
         stage('Test Stage') {
             steps {
-                dir('onlinebookstore_Source_code') {
-                    sh '''#!/bin/bash
-                        /opt/maven/bin/mvn clean verify sonar:sonar \
-                            -Dsonar.projectKey=Obs \
-                            -Dsonar.projectName=Obs \
-                            -Dsonar.host.url=http://13.233.93.72:9000 \
-                            -Dsonar.token=sqp_fd8a441f7a86e8c4393af15ca0ff3652c23833f9
-                    '''
-                }
+                sh '''#!/bin/bash
+                    cd onlinebookstore_Source_code
+                    /opt/maven/bin/mvn clean verify sonar:sonar \
+                        -Dsonar.projectKey=Obs \
+                        -Dsonar.projectName=Obs \
+                        -Dsonar.host.url=http://13.233.93.72:9000 \
+                        -Dsonar.token=sqp_fd8a441f7a86e8c4393af15ca0ff3652c23833f9
+                '''
                 echo 'Testing done'
             }
         }
