@@ -27,13 +27,11 @@ pipeline {
                 '''
 
 
-            sh '''
-            export PATH=/opt/maven/bin:$PATH
-            mvn sonarqube:sonarqube \
-              -Dsonar.projectKey=my_project_key \
-              -Dsonar.host.url=http://13.201.121.148:9000 \
-              -Dsonar.login=my_token
-        '''
+           /opt/maven/bin/mvn sonar:sonar \
+  -Dsonar.projectKey=my_project_key \
+  -Dsonar.host.url=http://13.201.121.148:9000 \
+  -Dsonar.login=my_token
+
 
                  echo 'Testing done'
              }
