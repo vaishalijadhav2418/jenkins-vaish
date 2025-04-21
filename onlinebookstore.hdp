@@ -27,11 +27,10 @@ pipeline {
                 '''
 
 
-          /opt/maven/bin/mvn sonar:sonar \
+        /opt/maven/bin/mvn sonar:sonar \
   -Dsonar.projectKey=onlinebookstores \
   -Dsonar.host.url=http://13.201.121.148:9000 \
   -Dsonar.login=256983195b76550c8e84e9dcf3077ee3ba8a6207
-
 
 
                  echo 'Testing done'
