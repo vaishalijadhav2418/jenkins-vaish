@@ -10,7 +10,7 @@ pipeline {
                 sh '''ls'''
                 sh 'pwd'
                 echo 'Pull stage succeed'
-                echo 'Pull stage succeed'
+              
             }
         }
         stage('Build Stage') {
