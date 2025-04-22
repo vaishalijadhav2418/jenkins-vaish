@@ -45,7 +45,10 @@ timeout(time: 2, unit: 'MINUTES') {
         
         stage('Deploy Stage') {
             steps {
+deploy adapters: [tomcat9(credentialsId: 'linux', path: '', url: 'http://172.31.3.98:8080')], contextPath: '/onlinebookstore', war: '**/*'
                 echo 'Deployment Done '
+// deploy adapters: [tomcat9(credentialsId: 'tomcat-cred', path: '', url: 'http://172.31.17.134:8080')], contextPath: '/onlinebookstore', war: '**/*.war'
+  
             }
         }
     }
