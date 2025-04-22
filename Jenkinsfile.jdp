@@ -28,10 +28,10 @@ pipeline {
  // -Dsonar.host.url=http://13.235.247.241:9000 \\
  // -Dsonar.token=sqp_e48c293ab9e4d3346f3f5925632c56fc858be828'''
 
-
-withSonarQubeEnv(credentialsId: 'tocken') {
-   sh '/opt/maven/bin/mvn clean verify sonar:sonar'
-}
+withSonarQubeEnv(installationName: 'sonar',credentialsId: 'sonar-new') {
+					sh '/opt/maven/bin/mvn sonar:sonar \
+					-Dsonar.projectKey=onlinebookstore'
+				}	
 
         echo 'Testing done'
     }
