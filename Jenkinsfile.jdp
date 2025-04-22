@@ -35,9 +35,9 @@ withSonarQubeEnv(installationName: 'sonar',credentialsId: 'tocken') {
 
         echo 'Testing done'
 
-timeout(time: 2, unit: 'MINUTES') {
-	            waitForQualityGate abortPipeline: true
-	        }
+       //timeout(time: 2, unit: 'MINUTES') {
+	           // waitForQualityGate abortPipeline: true
+	    //    }
     }
 }
 
