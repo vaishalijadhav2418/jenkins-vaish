@@ -22,14 +22,11 @@ pipeline {
         
        stage('Test stage') {
     steps {
-   
-       sh ''' 
-            /opt/maven/bin/mvn sonar:sonar \           
-              -Dsonar.projectKey=Onlinebookstore \
-              -Dsonar.projectName='Onlinebookstore' \
-              -Dsonar.host.url=http://13.235.247.241:9000 \
-              -Dsonar.token=sqp_e48c293ab9e4d3346f3f5925632c56fc858be828
-            '''
+   sh '''/opt/maven/bin/mvn clean verify sonar:sonar \\
+  -Dsonar.projectKey=Onlinebookstore \\
+  -Dsonar.projectName=\'Onlinebookstore\' \\
+  -Dsonar.host.url=http://13.235.247.241:9000 \\
+  -Dsonar.token=sqp_e48c293ab9e4d3346f3f5925632c56fc858be828'''
 
         echo 'Testing done'
     }
