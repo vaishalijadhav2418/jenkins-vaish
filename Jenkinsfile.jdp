@@ -30,7 +30,7 @@ pipeline {
 
 withSonarQubeEnv(installationName: 'sonar',credentialsId: 'tocken') {
 					sh '/opt/maven/bin/mvn sonar:sonar \
-					-Dsonar.projectKey=onlinebookstore'
+					-Dsonar.projectKey=Onlinebookstore'
 				}	
 
         echo 'Testing done'
